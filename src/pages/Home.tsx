@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-
-  Zap, 
-  Shield, 
-  Globe, 
-  Database, 
-  CheckCircle,
-  ArrowRight,
-  Star,
-
-} from 'lucide-react';
+import { Zap, Shield, Globe, Database, CheckCircle, ArrowRight, Star, Check, Gift, Clock, WholeWord as Wordpress } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import DomainSearch from '../components/DomainSearch';
+import SupportBanner from '../components/SupportBanner';
+import FAQ from '../components/FAQ';
 
 const Home: React.FC = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+
+  // Hook para detectar cambios de tamaño de pantalla
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const features = [
     {
@@ -40,64 +44,61 @@ const Home: React.FC = () => {
     }
   ];
 
-
-const plans = [
-  {
-    name: 'VPS en Miami, FL - Pequeño',
-    price: '14',
-    period: '/mes',
-    features: [
-      'Procesador 3.3 Ghz Xeon E3-1230 x1',
-      '1 GB de Memoria RAM',
-      '20 GB de Disco Duro',
-      '1 Dirección IP (IPv4)',
-      'Ancho de Banda Ilimitado',
-      'Soporte 24/7'
-    ],
-    popular: false
-  },
-  {
-    name: 'Servidores Dedicados en Miami, FL - Medio',
-    price: '82',
-    period: '/mes',
-    features: [
-      'Intel Dual Xeon 3.0 Ghz',
-      '8 GB de Memoria RAM',
-      '1 TB HDD',
-      '1 IP (IPv4)',
-      'Acceso Root / Escritorio Remoto',
-      'Soporte 24/7'
-    ],
-    popular: true
-  },
-  {
-    name: 'Cloud VM',
-    price: '18.05',
-    period: '/mes',
-    features: [
-      'Servidor Cloud KVM en Miami',
-      'Incluye panel de control líder en la industria',
-      'Familias de procesadores Intel Xeon',
-      'Soporta hasta 32GB de memoria',
-      'Hasta 2TB de almacenamiento SAN',
-
-    ],
-    popular: false
-  },
-  {
-    name: 'EE.UU./Costa Este - Supermicro MicroCloud',
-    price: '120',
-    period: '/mes',
-    features: [
-      'Servidor Dedicado Bare Metal en EE.UU.',
-      'Procesadores Intel Xeon E3 (E3-1230 v3, E3-1240 v3, E3-1270 v3)',
-      'Soporta hasta 32GB DDR3 1600MHz',
-      'Opciones de 2 x 3.5" SATA/SSD',
-    ],
-    popular: false
-  }
-];
-
+  const plans = [
+    {
+      name: 'VPS en Miami, FL - Pequeño',
+      price: '14',
+      period: '/mes',
+      features: [
+        'Procesador 3.3 Ghz Xeon E3-1230 x1',
+        '1 GB de Memoria RAM',
+        '20 GB de Disco Duro',
+        '1 Dirección IP (IPv4)',
+        'Ancho de Banda Ilimitado',
+        'Soporte 24/7'
+      ],
+      popular: false
+    },
+    {
+      name: 'Servidores Dedicados en Miami, FL - Medio',
+      price: '82',
+      period: '/mes',
+      features: [
+        'Intel Dual Xeon 3.0 Ghz',
+        '8 GB de Memoria RAM',
+        '1 TB HDD',
+        '1 IP (IPv4)',
+        'Acceso Root / Escritorio Remoto',
+        'Soporte 24/7'
+      ],
+      popular: true
+    },
+    {
+      name: 'Cloud VM',
+      price: '18.05',
+      period: '/mes',
+      features: [
+        'Servidor Cloud KVM en Miami',
+        'Incluye panel de control líder en la industria',
+        'Familias de procesadores Intel Xeon',
+        'Soporta hasta 32GB de memoria',
+        'Hasta 2TB de almacenamiento SAN',
+      ],
+      popular: false
+    },
+    {
+      name: 'EE.UU./Costa Este - Supermicro MicroCloud',
+      price: '120',
+      period: '/mes',
+      features: [
+        'Servidor Dedicado Bare Metal en EE.UU.',
+        'Procesadores Intel Xeon E3 (E3-1230 v3, E3-1240 v3, E3-1270 v3)',
+        'Soporta hasta 32GB DDR3 1600MHz',
+        'Opciones de 2 x 3.5" SATA/SSD',
+      ],
+      popular: false
+    }
+  ];
 
   const testimonials = [
     {
@@ -117,35 +118,70 @@ const plans = [
       company: 'Digital Agency',
       comment: 'Migrar a DonHoster fue la mejor decisión. Sus VPS son potentes y confiables, perfectos para nuestros proyectos de desarrollo.',
       rating: 5
+    },
+    {
+      name: 'Diego Fernández',
+      company: 'E-Commerce Pro',
+      comment: 'La estabilidad y velocidad de los servidores han incrementado nuestras ventas un 40%. El uptime del 99.9% no es solo una promesa, es una realidad.',
+      rating: 5
+    },
+    {
+      name: 'Laura Sánchez',
+      company: 'WebDesign Studio',
+      comment: 'Como desarrolladora web, necesito servidores que respondan rápido. DonHoster supera todas mis expectativas con su rendimiento excepcional.',
+      rating: 5
+    },
+    {
+      name: 'Roberto Jiménez',
+      company: 'DataTech Solutions',
+      comment: 'La migración fue completamente gratuita y sin interrupciones. Su equipo técnico nos guió en cada paso del proceso.',
+      rating: 5
+    },
+    {
+      name: 'Carmen López',
+      company: 'Marketing Digital Plus',
+      comment: 'Llevamos 3 años con DonHoster y nunca hemos tenido problemas graves. Su soporte 24/7 en español es invaluable para nuestro negocio.',
+      rating: 5
+    },
+    {
+      name: 'Alejandro Moreno',
+      company: 'Tech Innovators',
+      comment: 'Los precios son competitivos y la calidad del servicio es superior a otros proveedores que hemos probado en el pasado.',
+      rating: 5
     }
   ];
 
-  const faqs = [
-    {
-      question: '¿Qué garantía de uptime ofrecen?',
-      answer: 'Garantizamos 99.9% de uptime con compensación automática si no cumplimos esta promesa.'
-    },
-    {
-      question: '¿Incluyen migración gratuita?',
-      answer: 'Sí, ofrecemos migración gratuita desde tu proveedor actual sin tiempo de inactividad.'
-    },
-    {
-      question: '¿El soporte técnico es en español?',
-      answer: 'Absolutamente. Nuestro equipo de soporte está disponible 24/7 en español peninsular.'
-    },
-    {
-      question: '¿Dónde están ubicados los servidores?',
-      answer: 'Nuestro data center principal está en Miami, con conexiones optimizadas para España y Latinoamérica.'
-    }
-  ];
+  // Función para obtener testimonios por slide
+  const getTestimonialsPerSlide = () => {
+    return isDesktop ? 3 : 1;
+  };
 
+  // Función para obtener el número total de slides
+  const getTotalSlides = () => {
+    const testimonialsPerSlide = getTestimonialsPerSlide();
+    return Math.ceil(testimonials.length / testimonialsPerSlide);
+  };
+
+  // Función para obtener testimonios del slide actual
+  const getCurrentSlideTestimonials = () => {
+    const testimonialsPerSlide = getTestimonialsPerSlide();
+    const startIndex = currentSlide * testimonialsPerSlide;
+    return testimonials.slice(startIndex, startIndex + testimonialsPerSlide);
+  };
+
+  // Efecto para el auto-avance del carrusel
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      setCurrentSlide((prev) => (prev + 1) % getTotalSlides());
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [testimonials.length]);
+  }, [isDesktop, testimonials.length]);
+
+  // Resetear slide cuando cambia el tamaño de pantalla
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [isDesktop]);
 
   return (
     <motion.div
@@ -155,84 +191,201 @@ const plans = [
       className="min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative pt-20 lg:pt-32 pb-16 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-gray-900 to-black opacity-90"></div>
-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg')] bg-cover bg-center"></div>
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight"
-          >
-            Servidores Dedicados en Miami con{' '}
-            <span className="text-purple-400">99% de Fiabilidad</span> en Uptime
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
-          >
-            La mejor infraestructura tecnológica para tu negocio. 
-            Hosting, VPS y servidores dedicados con soporte premium en español.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <Link to="/servidores-dedicados">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2 text-lg"
+      <section className="relative pt-20 lg:pt-32 pb-16 lg:pb-24 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="mb-6"
               >
-                <span>Ver Planes</span>
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-            </Link>
-            <Link to="/contacto">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-lg transition-all duration-200 text-lg"
-              >
-                Hablar con Experto
-              </motion.button>
-            </Link>
-          </motion.div>
+                <span className="inline-flex items-center px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium mb-4">
+                  <Gift className="w-4 h-4 mr-2" />
+                  Hasta 60% de descuento en hosting para WordPress
+                </span>
+              </motion.div>
 
-          {/* Stats */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight text-gray-900 dark:text-white"
+              >
+                Hosting optimizado para{' '}
+                <span className="text-purple-600">WordPress</span>
+              </motion.h1>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="space-y-4 mb-8"
+              >
+                <div className="flex items-center space-x-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Dominio gratis</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Migración de sitios web gratis</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Ayuda las 24 horas</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="flex flex-col sm:flex-row gap-4 mb-8"
+              >
+                <Link to="/hosting-wordpress">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2 text-lg"
+                  >
+                    <span>Empezar ya</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.button>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400"
+              >
+                <Shield className="w-4 h-4" />
+                <span>Garantía de reembolso por 30 días</span>
+              </motion.div>
+            </div>
+
+            {/* Right Content - Visual Elements */}
+            <div className="relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="relative"
+              >
+                {/* Main Browser Window */}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-lg px-4 py-2 ml-4">
+                      <div className="flex items-center space-x-2">
+                        <Shield className="w-4 h-4 text-green-500" />
+                        <span className="text-sm text-gray-600 dark:text-gray-300">tudominio.com</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-purple-100 dark:bg-purple-900 rounded-lg p-4">
+                      <h3 className="font-bold text-2xl text-purple-800 dark:text-purple-200 mb-2">
+                        Tu Sitio Web
+                      </h3>
+                      <p className="text-purple-600 dark:text-purple-300 text-sm">
+                        Hosting optimizado para WordPress
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 flex items-center justify-center">
+                        <Wordpress className="w-8 h-8 text-blue-600" />
+                      </div>
+                      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 flex items-center justify-center">
+                        <Database className="w-8 h-8 text-purple-600" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Elements */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                      <Check className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-900 dark:text-white">99.9% Uptime</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Garantizado</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+                  className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+                      <Clock className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-900 dark:text-white">Soporte 24/7</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">En español</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, delay: 2 }}
+                  className="absolute top-1/2 -right-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-3"
+                >
+                  <div className="text-center">
+                    <p className="text-lg font-bold text-green-600">$9.99</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">/mes</p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Stats Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gray-700"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-16 border-t border-gray-200 dark:border-gray-700"
           >
             <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">99.9%</div>
-              <div className="text-gray-300">Uptime Garantizado</div>
+              <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">99.9%</div>
+              <div className="text-gray-600 dark:text-gray-300">Uptime Garantizado</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">24/7</div>
-              <div className="text-gray-300">Soporte Técnico</div>
+              <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">24/7</div>
+              <div className="text-gray-600 dark:text-gray-300">Soporte Técnico</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">5,000+</div>
-              <div className="text-gray-300">Clientes Activos</div>
+              <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">5,000+</div>
+              <div className="text-gray-600 dark:text-gray-300">Clientes Activos</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">8</div>
-              <div className="text-gray-300">Años Experiencia</div>
+              <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">8</div>
+              <div className="text-gray-600 dark:text-gray-300">Años Experiencia</div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Domain Search Section */}
+      <DomainSearch />
 
       {/* Features Section */}
       <AnimatedSection className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
@@ -360,6 +513,9 @@ const plans = [
         </div>
       </AnimatedSection>
 
+      {/* Support Banner */}
+      <SupportBanner />
+
       {/* Testimonials Section */}
       <AnimatedSection className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -372,40 +528,57 @@ const plans = [
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <motion.div
-              key={currentTestimonial}
+              key={currentSlide}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
-              className="bg-white dark:bg-gray-700 p-8 lg:p-12 rounded-2xl shadow-xl text-center"
+              transition={{ duration: 0.5 }}
+              className={`grid gap-8 ${
+                isDesktop ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'
+              }`}
             >
-              <div className="flex justify-center mb-6">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <blockquote className="text-xl lg:text-1xl text-gray-700 dark:text-gray-300 mb-8 italic">
-                "{testimonials[currentTestimonial].comment}"
-              </blockquote>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-white text-lg">
-                  {testimonials[currentTestimonial].name}
-                </p>
-                <p className="text-purple-600 dark:text-purple-400">
-                  {testimonials[currentTestimonial].company}
-                </p>
-              </div>
+              {getCurrentSlideTestimonials().map((testimonial, index) => (
+                <motion.div
+                  key={`${currentSlide}-${index}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white dark:bg-gray-700 p-6 lg:p-8 rounded-2xl shadow-xl text-center h-full flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex justify-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                    <blockquote className="text-lg text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed">
+                      "{testimonial.comment}"
+                    </blockquote>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white text-lg mb-1">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-purple-600 dark:text-purple-400 text-sm">
+                      {testimonial.company}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
 
             {/* Testimonial Indicators */}
-            <div className="flex justify-center space-x-2 mt-8">
-              {testimonials.map((_, index) => (
+            <div className="flex justify-center space-x-2 mt-12">
+              {Array.from({ length: getTotalSlides() }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                    index === currentTestimonial ? 'bg-purple-600' : 'bg-gray-300'
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'bg-purple-600 scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
               ))}
@@ -415,37 +588,7 @@ const plans = [
       </AnimatedSection>
 
       {/* FAQ Section */}
-      <AnimatedSection className="py-16 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Preguntas Frecuentes
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Resolvemos tus dudas más comunes
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
+      <FAQ />
 
       {/* CTA Section */}
       <AnimatedSection className="py-16 lg:py-24 bg-gradient-to-r from-purple-600 to-purple-800">
