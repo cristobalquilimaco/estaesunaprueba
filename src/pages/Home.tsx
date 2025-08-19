@@ -346,7 +346,7 @@ const Home: React.FC = () => {
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 5, repeat: Infinity, delay: 2 }}
-                  className="absolute top-1/2 -right-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-3"
+                  className="absolute top-1/2 -right-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-3"
                 >
                   <div className="text-center">
                     <p className="text-lg font-bold text-green-600">$9.99</p>
@@ -362,7 +362,7 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-16 border-t border-gray-200 dark:border-gray-700"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-20 pt-16 border-t border-gray-200 dark:border-gray-700"
           >
             <div className="text-center">
               <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">99.9%</div>

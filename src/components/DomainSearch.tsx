@@ -77,7 +77,7 @@ const DomainSearch: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Buscar dominio (ej: miempresa)"
-                className="flex-1 px-1 py-4 text-lg border border-gray-300 dark:border-gray-600 rounded-l-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                className="flex-1  py-4 text-lg border border-gray-300 dark:border-gray-600 rounded-l-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 disabled={isSearching}
               />
               <motion.button
