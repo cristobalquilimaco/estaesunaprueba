@@ -70,7 +70,7 @@ const DomainSearch: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-2xl mx-auto"
         >
-          <form onSubmit={handleSearch} className="relative mb-8">
+          <form onSubmit={handleSearch} className="relative mb-8 w-full">
             <div className="flex">
               <input
                 type="text"
