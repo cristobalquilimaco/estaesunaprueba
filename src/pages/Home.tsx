@@ -542,11 +542,12 @@ const Home: React.FC = () => {
               {getCurrentSlideTestimonials().map((testimonial, index) => (
                 <motion.div
                   key={`${currentSlide}-${index}`}
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-700 p-6 lg:p-8 rounded-2xl shadow-xl text-center h-full flex flex-col justify-between"
-                >
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ duration: 0.5 }}
+      className={`grid gap-8 ${isDesktop ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}
+    >
                   <div>
                     <div className="flex justify-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
