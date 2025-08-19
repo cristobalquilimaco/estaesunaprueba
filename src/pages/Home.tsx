@@ -542,7 +542,7 @@ const Home: React.FC = () => {
               {getCurrentSlideTestimonials().map((testimonial, index) => (
                 <motion.div
                   key={`${currentSlide}-${index}`}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-white dark:bg-gray-700 p-6 lg:p-8 rounded-2xl shadow-xl text-center h-full flex flex-col justify-between"
