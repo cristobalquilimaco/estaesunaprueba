@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Zap, Shield, Globe, Database, CheckCircle, ArrowRight, Star, Check, Gift, Clock, WholeWord as Wordpress } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
 import DomainSearch from '../components/DomainSearch';
-// import SupportBanner from '../components/SupportBanner';
+import SupportBanner from '../components/SupportBanner';
 import FAQ from '../components/FAQ';
 
 const Home: React.FC = () => {
@@ -514,7 +514,7 @@ const Home: React.FC = () => {
       </AnimatedSection>
 
       {/* Support Banner */}
-      {/* <SupportBanner /> */}
+      <SupportBanner />
 
       {/* Testimonials Section */}
       <AnimatedSection className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
