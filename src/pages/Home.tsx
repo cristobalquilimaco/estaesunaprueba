@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Shield, Globe, Database, CheckCircle, ArrowRight, Star, Check, Gift, Clock, WholeWord as Wordpress } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
 import DomainSearch from '../components/DomainSearch';
@@ -182,6 +182,29 @@ const Home: React.FC = () => {
   useEffect(() => {
     setCurrentSlide(0);
   }, [isDesktop]);
+
+  const testimonialVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.8,
+      rotateY: direction > 0 ? 45 : -45,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      rotateY: 0,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.8,
+      rotateY: direction < 0 ? 45 : -45,
+    })
+  };
 
   return (
     <motion.div
@@ -516,7 +539,185 @@ const Home: React.FC = () => {
       {/* Support Banner */}
       <SupportBanner />
 
-    
+      {/* Testimonials Section */}
+      <AnimatedSection className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            >
+              Qué dicen nuestros clientes
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-xl text-gray-600 dark:text-gray-300"
+            >
+              La confianza de miles de empresas españolas
+            </motion.p>
+          </div>
+
+          <div className="max-w-7xl mx-auto relative">
+            <div className="overflow-hidden">
+              <AnimatePresence mode="wait" custom={currentSlide}>
+                <motion.div
+                  key={`testimonial-slide-${currentSlide}`}
+                  custom={currentSlide}
+                  variants={testimonialVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.4 },
+                    scale: { duration: 0.4 },
+                    rotateY: { duration: 0.6 }
+                  }}
+                  className={`grid gap-8 ${
+                    isDesktop ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'
+                  }`}
+                >
+                  {getCurrentSlideTestimonials().map((testimonial, index) => (
+                    <motion.div
+                      key={`${currentSlide}-testimonial-${index}`}
+                      initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                      exit={{ opacity: 0, y: -50, rotateX: 15 }}
+                      transition={{ 
+                        duration: 0.6, 
+                        delay: index * 0.2,
+                        type: "spring",
+                        stiffness: 100
+                      }}
+                      whileHover={{ 
+                        scale: 1.05, 
+                        rotateY: 5,
+                        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                      }}
+                      className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-700 dark:to-gray-800 p-6 lg:p-8 rounded-2xl shadow-xl text-center h-full flex flex-col justify-between relative overflow-hidden group"
+                    >
+                      {/* Background gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      <div className="relative z-10">
+                        <motion.div 
+                          className="flex justify-center mb-4"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                        >
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                              transition={{ 
+                                duration: 0.4, 
+                                delay: index * 0.2 + 0.4 + (i * 0.1),
+                                type: "spring",
+                                stiffness: 200
+                              }}
+                            >
+                              <Star className="w-6 h-6 text-yellow-400 fill-current mx-0.5" />
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                        
+                        <motion.blockquote 
+                          className="text-lg text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed relative"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.6, delay: index * 0.2 + 0.5 }}
+                        >
+                          <span className="text-4xl text-purple-300 absolute -top-2 -left-2">"</span>
+                          <span className="relative z-10">{testimonial.comment}</span>
+                          <span className="text-4xl text-purple-300 absolute -bottom-4 -right-2">"</span>
+                        </motion.blockquote>
+                      </div>
+                      
+                      <motion.div
+                        className="relative z-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.2 + 0.7 }}
+                      >
+                        <div className="w-12 h-0.5 bg-gradient-to-r from-purple-600 to-pink-500 mx-auto mb-4" />
+                        <p className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-purple-600 dark:text-purple-400 text-sm font-medium">
+                          {testimonial.company}
+                        </p>
+                      </motion.div>
+
+                      {/* Decorative elements */}
+                      <div className="absolute top-4 right-4 w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500" />
+                      <div className="absolute bottom-4 left-4 w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-700" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Testimonial Indicators */}
+            <motion.div 
+              className="flex justify-center space-x-3 mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              {Array.from({ length: getTotalSlides() }).map((_, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`relative w-4 h-4 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'bg-purple-600 scale-125 shadow-lg' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                >
+                  {index === currentSlide && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-purple-600"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      layoutId="activeIndicator"
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </motion.div>
+
+            {/* Navigation arrows for desktop */}
+            {isDesktop && (
+              <>
+                <motion.button
+                  onClick={() => setCurrentSlide((prev) => (prev - 1 + getTotalSlides()) % getTotalSlides())}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center text-purple-600 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <ArrowRight className="w-5 h-5 rotate-180" />
+                </motion.button>
+                <motion.button
+                  onClick={() => setCurrentSlide((prev) => (prev + 1) % getTotalSlides())}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center text-purple-600 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </>
+            )}
+          </div>
+        </div>
+      </AnimatedSection>
 
       {/* FAQ Section */}
       <FAQ />
