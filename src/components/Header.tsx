@@ -39,9 +39,10 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
           : 'bg-transparent'
       }`}
-      initial={false}
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      key="main-header"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
