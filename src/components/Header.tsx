@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon, User,} from 'lucide-react';
+import { Menu, X, Sun, Moon, User } from 'lucide-react';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -14,10 +14,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -39,23 +36,23 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg'
           : 'bg-transparent'
       }`}
-      initial={{ y: 0 }}
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      // Evita animaciones al re-render
       key="main-header"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-<Link to="/" className="flex items-center space-x-2 group">
-  <motion.img
-    src="https://www.donhoster.com/assets/logo-DqEtRenT.webp"
-    alt="DonHoster Logo"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    className="w-52 h-auto object-contain"
-  />
-</Link>
+          <Link to="/" className="flex items-center space-x-2 group">
+            <motion.img
+              src="https://www.donhoster.com/assets/logo-DqEtRenT.webp"
+              alt="DonHoster Logo"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-52 h-auto object-contain"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -83,7 +80,6 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -93,7 +89,6 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </motion.button>
 
-            {/* Login Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
