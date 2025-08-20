@@ -279,55 +279,6 @@ const AboutPage: React.FC = () => {
         </div>
       </AnimatedSection>
 
-      {/* Team */}
-      <AnimatedSection className="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Nuestro Equipo
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Profesionales apasionados por la tecnología y el servicio al cliente
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white dark:bg-gray-700 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative overflow-hidden">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-3">
-                    {member.position}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
-                    {member.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
-
       {/* Certifications & Partners */}
       <AnimatedSection className="py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

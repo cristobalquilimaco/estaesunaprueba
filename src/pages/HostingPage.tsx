@@ -177,47 +177,51 @@ const hostingPlans = [
       className="min-h-screen pt-20"
     >
       {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-900 opacity-90"></div>
-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg')] bg-cover bg-center"></div>
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl lg:text-6xl font-bold mb-6"
-          >
-            Soluciones de <span className="text-purple-400">Hosting Fiables</span> y Asequibles
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
-          >
-            Hosting web optimizado para WordPress con rendimiento excepcional, 
-            seguridad avanzada y soporte técnico premium en español.
-          </motion.p>
+<section className="relative py-16 lg:py-24 overflow-hidden">
+  {/* Gradiente */}
+  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-900 opacity-80"></div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2"
-            >
-              <span>Ver Planes de Hosting</span>
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
+  {/* Imagen de fondo con blur */}
+  <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg')] bg-cover bg-center filter blur-sm"></div>
+
+  <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+    <motion.h1
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-4xl lg:text-6xl font-bold mb-6"
+    >
+      Soluciones de <span className="text-purple-400">Hosting Fiables</span> y Asequibles
+    </motion.h1>
+
+    <motion.p
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+    >
+      Hosting web optimizado para WordPress con rendimiento excepcional, 
+      seguridad avanzada y soporte técnico premium en español.
+    </motion.p>
+
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+    >
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2"
+      >
+        <span>Ver Planes de Hosting</span>
+        <ArrowRight className="w-5 h-5" />
+      </motion.button>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Hosting Plans */}
       <AnimatedSection className="py-16 lg:py-24">

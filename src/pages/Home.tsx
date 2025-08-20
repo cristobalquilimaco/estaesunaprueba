@@ -372,7 +372,7 @@ const Home: React.FC = () => {
                   className="absolute top-1/2 -right-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-3"
                 >
                   <div className="text-center">
-                    <p className="text-lg font-bold text-green-600">$9.99</p>
+                    <p className="text-lg font-bold text-green-600">$2.60</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">/mes</p>
                   </div>
                 </motion.div>

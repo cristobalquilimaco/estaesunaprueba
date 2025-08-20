@@ -148,7 +148,7 @@ const vpsPlans = [
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black opacity-90"></div>
-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg')] bg-cover bg-center bg-black opacity-10"></div>
         
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.h1
