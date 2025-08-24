@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import { 
   Server, 
   Cpu, 
@@ -9,83 +11,206 @@ import {
   CheckCircle,
   ArrowRight,
   Monitor,
-  Database
+  Database,
+  AlertCircle,
+  Loader2,
 } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import { Helmet } from 'react-helmet-async';
 
 const ServersPage: React.FC = () => {
-  const serverPlans = [
-  {
-    name: 'Servidor Dedicado Small - Miami',
-    price: '60.00',
-    setup: '0',
-    specs: {
-      cpu: 'Intel Dual Xeon 3.0 GHz',
-      ram: '4 GB',
-      storage: '500 GB HDD',
-      bandwidth: 'Ilimitado',
-      connection: '1 Gbps'
-    },
-    features: [
-      '1 IP dedicada (IPv4)',
-      'Acceso root / Escritorio remoto',
-      'Soporte técnico 24/7'
-    ]
-  },
-  {
-    name: 'Servidor Dedicado Medium - Miami',
-    price: '82.00',
-    setup: '0',
-    popular:true,
-    specs: {
-      cpu: 'Intel Dual Xeon 3.0 GHz',
-      ram: '8 GB',
-      storage: '1 TB HDD',
-      bandwidth: 'Ilimitado',
-      connection: '1 Gbps'
-    },
-    features: [
-      '1 IP dedicada (IPv4)',
-      'Acceso root / Escritorio remoto',
-      'Soporte técnico 24/7'
-    ]
-  },
-  {
-    name: 'Servidor Dedicado Large - Miami',
-    price: '120.00',
-    setup: '0',
-    specs: {
-      cpu: 'Intel Dual Xeon 3.0 GHz',
-      ram: '16 GB',
-      storage: '1 TB HDD',
-      bandwidth: 'Ilimitado',
-      connection: '1 Gbps'
-    },
-    features: [
-      '1 IP dedicada (IPv4)',
-      'Acceso root / Escritorio remoto',
-      'Soporte técnico 24/7'
-    ]
-  },
-  {
-    name: 'Servidor Dedicado Extra Large - Miami',
-    price: '220.00',
-    setup: '0',
-    specs: {
-      cpu: 'Intel Dual Xeon 3.0 GHz',
-      ram: '32 GB',
-      storage: '2x1 TB HDD',
-      bandwidth: 'Ilimitado',
-      connection: '1 Gbps'
-    },
-    features: [
-      '1 IP dedicada (IPv4)',
-      'Acceso root / Escritorio remoto',
-      'Soporte técnico 24/7'
-    ]
-  }
-];
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    telefono: '',
+    tipoProyecto: '',
+    mensaje: ''
+  });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
+
+  const RECAPTCHA_SITE_KEY = "6LfiuLArAAAAADoOfpT7SkSPAp0yt30Dokg-qUQ1";
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const validateForm = () => {
+    if (!formData.nombre.trim()) {
+      setMessage({ type: 'error', text: 'El nombre es requerido' });
+      return false;
+    }
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
+      setMessage({ type: 'error', text: 'Ingresa un email válido' });
+      return false;
+    }
+    if (!formData.telefono.trim()) {
+      setMessage({ type: 'error', text: 'El teléfono es requerido' });
+      return false;
+    }
+    if (!formData.tipoProyecto) {
+      setMessage({ type: 'error', text: 'Selecciona el tipo de proyecto' });
+      return false;
+    }
+    if (!formData.mensaje.trim()) {
+      setMessage({ type: 'error', text: 'Describe tu proyecto' });
+      return false;
+    }
+    return true;
+  };
+
+  const submitForm = async (captchaToken: string | null = null) => {
+    try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbywVYDa0VqilMegTlDjDyHxM9yy6E7DWiWcZKdAvFhxyQwI66vd36KgAXtk83sgVOFJ/exec', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          captchaToken,
+          timestamp: new Date().toISOString()
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setMessage({ type: 'success', text: 'Solicitud enviada correctamente. Te contactaremos pronto.' });
+        setFormData({
+          nombre: '',
+          email: '',
+          telefono: '',
+          tipoProyecto: '',
+          mensaje: ''
+        });
+        setShowCaptcha(false);
+        if (recaptchaRef.current) {
+          recaptchaRef.current.reset();
+        }
+      } else {
+        if (result.needsCaptcha) {
+          setShowCaptcha(true);
+          setMessage({ type: 'warning', text: 'Completa el captcha para continuar' });
+        } else {
+          setMessage({ type: 'error', text: result.message });
+        }
+      }
+    } catch (error) {
+      console.error('Error al enviar la solicitud:', error);
+      setMessage({ type: 'error', text: 'Error al enviar la solicitud. Inténtalo nuevamente.' });
+}
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage({ type: '', text: '' });
+
+    if (showCaptcha) {
+      const captchaToken = recaptchaRef.current?.getValue();
+      if (!captchaToken) {
+        setMessage({ type: 'error', text: 'Completa el captcha' });
+        setIsSubmitting(false);
+        return;
+      }
+      await submitForm(captchaToken);
+    } else {
+      await submitForm();
+    }
+
+    setIsSubmitting(false);
+  };
+
+  const serverPlans = [
+    {
+      name: 'Servidor Dedicado Small - Miami',
+      price: '60.00',
+      setup: '0',
+      specs: {
+        cpu: 'Intel Dual Xeon 3.0 GHz',
+        ram: '4 GB',
+        storage: '500 GB HDD',
+        bandwidth: 'Ilimitado',
+        connection: '1 Gbps'
+      },
+      features: [
+        '1 IP dedicada (IPv4)',
+        'Acceso root / Escritorio remoto',
+        'Soporte técnico 24/7'
+      ],
+      url: "https://my.donhoster.com/cart.php?a=add&pid=2&_gl=1*124z2fw*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzQ1MiRqNjAkbDAkaDA."
+    },
+    {
+      name: 'Servidor Dedicado Medium - Miami',
+      price: '82.00',
+      setup: '0',
+      popular: true,
+      specs: {
+        cpu: 'Intel Dual Xeon 3.0 GHz',
+        ram: '8 GB',
+        storage: '1 TB HDD',
+        bandwidth: 'Ilimitado',
+        connection: '1 Gbps'
+      },
+      features: [
+        '1 IP dedicada (IPv4)',
+        'Acceso root / Escritorio remoto',
+        'Soporte técnico 24/7'
+      ],
+      url: "https://my.donhoster.com/cart.php?a=add&pid=8&_gl=1*1s6hjcc*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzQ1MiRqNjAkbDAkaDA."
+    },
+    {
+      name: 'Servidor Dedicado Large - Miami',
+      price: '120.00',
+      setup: '0',
+      specs: {
+        cpu: 'Intel Dual Xeon 3.0 GHz',
+        ram: '16 GB',
+        storage: '1 TB HDD',
+        bandwidth: 'Ilimitado',
+        connection: '1 Gbps'
+      },
+      features: [
+        '1 IP dedicada (IPv4)',
+        'Acceso root / Escritorio remoto',
+        'Soporte técnico 24/7'
+      ],
+      url: "https://my.donhoster.com/cart.php?a=add&pid=9&_gl=1*1s6hjcc*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzQ1MiRqNjAkbDAkaDA."
+    },
+    {
+      name: 'Servidor Dedicado Extra Large - Miami',
+      price: '220.00',
+      setup: '0',
+      specs: {
+        cpu: 'Intel Dual Xeon 3.0 GHz',
+        ram: '32 GB',
+        storage: '2x1 TB HDD',
+        bandwidth: 'Ilimitado',
+        connection: '1 Gbps'
+      },
+      features: [
+        '1 IP dedicada (IPv4)',
+        'Acceso root / Escritorio remoto',
+        'Soporte técnico 24/7'
+      ],
+      url: "https://my.donhoster.com/cart.php?a=add&pid=10&_gl=1*1s6hjcc*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzQ1MiRqNjAkbDAkaDA."
+    }
+  ];
 
   const useCases = [
     {
@@ -121,6 +246,75 @@ const ServersPage: React.FC = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen pt-20"
     >
+      <Helmet>
+        {/* Meta básicas */}
+        <title>Servidores Dedicados en Miami | DonHoster</title>
+        <meta
+          name="description"
+          content="Contrata servidores dedicados en Miami con CPUs Intel Xeon, HDD/SSD y soporte técnico 24/7. Planes desde 60 USD/mes. Rendimiento ideal para España y Latinoamérica."
+        />
+        <meta
+          name="keywords"
+          content="servidores dedicados miami, hosting dedicado, dedicated servers, data center miami, hosting españa, servidores alto rendimiento"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="DonHoster" />
+        <meta name="copyright" content="© 2025 DonHoster" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Servidores Dedicados en Miami - Hosting de Alto Rendimiento | DonHoster"
+        />
+        <meta
+          property="og:description"
+          content="Servidores dedicados en Miami con CPU Xeon, ancho de banda ilimitado y soporte 24/7. Planes desde 60 USD/mes."
+        />
+        <meta property="og:image" content="https://donhoster.es/assets/dedicated-miami.jpg" />
+        <meta property="og:url" content="https://donhoster.es/servidores-dedicados-miami" />
+        <meta property="og:site_name" content="DonHoster" />
+        <meta property="og:locale" content="es_ES" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@donhoster" />
+        <meta name="twitter:creator" content="@donhoster" />
+        <meta
+          name="twitter:title"
+          content="Servidores Dedicados en Miami - Hosting de Alto Rendimiento | DonHoster"
+        />
+        <meta
+          name="twitter:description"
+          content="Servidores dedicados con CPU Intel Xeon, almacenamiento HDD/SSD y soporte 24/7. Desde 60 USD/mes."
+        />
+        <meta name="twitter:image" content="https://donhoster.es/assets/dedicated-miami-twitter.jpg" />
+
+        {/* Canonical & Hreflang */}
+        <link rel="canonical" href="https://donhoster.es/servidores-dedicados" />
+        <link rel="alternate" hrefLang="es" href="https://donhoster.es/servidores-dedicados" />
+        <link rel="alternate" hrefLang="en" href="https://donhoster.com/dedicated-servers" />
+        <link rel="alternate" hrefLang="x-default" href="https://donhoster.es/servidores-dedicados" />
+
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Servidores Dedicados en Miami - Hosting de Alto Rendimiento | DonHoster",
+            "url": "https://donhoster.es/servidores-dedicados-miami",
+            "description": "Contrata servidores dedicados en Miami con CPUs Intel Xeon, HDD/SSD y soporte técnico 24/7. Planes desde 60 USD/mes, ideales para España y Latinoamérica.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "DonHoster",
+              "url": "https://donhoster.es"
+            }
+          }
+          `}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-black opacity-100"></div>
@@ -265,8 +459,9 @@ const ServersPage: React.FC = () => {
                     ))}
                   </ul>
                 </div>
-
+                
                 <motion.button
+                  onClick={() => window.open(plan.url, '_blank')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`w-full py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2 ${
@@ -392,46 +587,107 @@ const ServersPage: React.FC = () => {
               Nuestros expertos te ayudarán a encontrar la solución perfecta para tu proyecto.
             </p>
 
-            <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl">
+            <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl">
+              {/* Message Display */}
+              {message.text && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mb-6 p-4 rounded-lg flex items-center space-x-2 ${
+                    message.type === 'success' ? 'bg-green-500/20 border border-green-500/30' :
+                    message.type === 'warning' ? 'bg-yellow-500/20 border border-yellow-500/30' :
+                    'bg-red-500/20 border border-red-500/30'
+                  }`}
+                >
+                  <AlertCircle className="w-5 h-5" />
+                  <span>{message.text}</span>
+                </motion.div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="text"
-                  placeholder="Nombre completo"
-                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleInputChange}
+                  placeholder="Nombre completo *"
+                  required
+                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/30"
                 />
                 <input
                   type="email"
-                  placeholder="Email empresarial"
-                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Email empresarial *"
+                  required
+                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/30"
                 />
                 <input
                   type="tel"
-                  placeholder="Teléfono"
-                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleInputChange}
+                  placeholder="Teléfono *"
+                  required
+                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/30"
                 />
-                <select className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:border-white/50">
-                  <option value="">Tipo de proyecto</option>
-                  <option value="corporate">Sitio Corporativo</option>
-                  <option value="ecommerce">E-commerce</option>
-                  <option value="saas">Aplicación SaaS</option>
-                  <option value="other">Otro</option>
+                <select 
+                  name="tipoProyecto"
+                  value={formData.tipoProyecto}
+                  onChange={handleInputChange}
+                  required
+                  className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white focus:outline-none focus:border-white/50 focus:bg-white/30"
+                >
+                  <option className='text-purple-500' value="">Tipo de proyecto *</option>
+                  <option className='text-purple-500' value="corporate">Sitio Corporativo</option>
+                  <option className='text-purple-500' value="ecommerce">E-commerce</option>
+                  <option className='text-purple-500' value="saas">Aplicación SaaS</option>
+                  <option className='text-purple-500' value="other">Otro</option>
                 </select>
               </div>
+              
               <textarea
-                placeholder="Cuéntanos sobre tu proyecto y requisitos específicos..."
+                name="mensaje"
+                value={formData.mensaje}
+                onChange={handleInputChange}
+                placeholder="Cuéntanos sobre tu proyecto y requisitos específicos... *"
                 rows={4}
-                className="w-full mt-6 px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50"
+                required
+                className="w-full mt-6 px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/30"
               ></textarea>
+
+              {/* reCAPTCHA */}
+              {showCaptcha && (
+                <div className="mt-6 flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    theme="dark"
+                  />
+                </div>
+              )}
               
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full mt-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 flex items-center justify-center space-x-2"
+                type="submit"
+                disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                className="w-full mt-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Solicitar Cotización</span>
-                <ArrowRight className="w-5 h-5" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Enviando...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Solicitar Cotización</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
               </motion.button>
-            </div>
+            </form>
           </div>
         </div>
       </AnimatedSection>

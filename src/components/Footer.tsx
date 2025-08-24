@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { 
   // Server, 
   Mail, 
-  Phone, 
   MapPin, 
   Facebook, 
   Instagram, 
@@ -15,10 +14,10 @@ import {
 const Footer: React.FC = () => {
   const quickLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Hosting', path: '/hosting' },
-    { name: 'VPS', path: '/vps' },
+    { name: 'Hosting', path: '/hosting-wordpress' },
+    { name: 'VPS', path: '/vps-hosting' },
     { name: 'Servidores', path: '/servidores-dedicados' },
-    { name: 'Cloud', path: '/cloud' },
+    { name: 'Cloud', path: '/cloud-hosting' },
     { name: 'Contacto', path: '/contacto' }
   ];
 
@@ -32,9 +31,9 @@ const Footer: React.FC = () => {
   ];
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' }
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/Datacenter.Donhoster/' },
+    { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/don_hoster/reels/' },
+    { name: 'Twitter', icon: Twitter, href: 'https://x.com/Donhoster' }
   ];
 
   return (
@@ -45,7 +44,7 @@ const Footer: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               
-<Link to="/" className="flex items-center space-x-2 group">
+<Link to="https://donhoster.es/" className="flex items-center space-x-2 group">
   <motion.img
     src="https://www.donhoster.com/assets/logo-DqEtRenT.webp"
     alt="DonHoster Logo"
@@ -63,10 +62,6 @@ const Footer: React.FC = () => {
               <div className="flex items-center space-x-3 text-gray-400">
                 <Mail className="w-4 h-4 text-purple-400" />
                 <span className="text-sm">info@donhoster.es</span>
-              </div>
-              <div className="flex items-center space-x-3 text-gray-400">
-                <Phone className="w-4 h-4 text-purple-400" />
-                <span className="text-sm">+123456</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <MapPin className="w-4 h-4 text-purple-400" />
@@ -156,10 +151,10 @@ const Footer: React.FC = () => {
               © 2025 DonHoster España. Todos los derechos reservados.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
+              <Link to="/politica-de-privacidad" className="text-gray-400 hover:text-white transition-colors">
                 Política de Privacidad
               </Link>
-              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
+              <Link to="/terminos-y-condiciones" className="text-gray-400 hover:text-white transition-colors">
                 Términos y Condiciones
               </Link>
             </div>

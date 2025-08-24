@@ -6,6 +6,7 @@ import AnimatedSection from '../components/AnimatedSection';
 import DomainSearch from '../components/DomainSearch';
 import SupportBanner from '../components/SupportBanner';
 import FAQ from '../components/FAQ';
+import { Helmet } from 'react-helmet-async';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,7 +58,8 @@ const Home: React.FC = () => {
         'Ancho de Banda Ilimitado',
         'Soporte 24/7'
       ],
-      popular: false
+      popular: false,
+      url: 'https://my.donhoster.com/cart.php?a=add&pid=1&_gl=1*yq4c36*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTU3MzU1MjYkbzE1MyRnMCR0MTc1NTczNTUyNiRqNjAkbDAkaDA.'
     },
     {
       name: 'Servidores Dedicados en Miami, FL - Medio',
@@ -71,7 +73,8 @@ const Home: React.FC = () => {
         'Acceso Root / Escritorio Remoto',
         'Soporte 24/7'
       ],
-      popular: true
+      popular: true,
+      url: 'https://my.donhoster.com/cart.php?a=add&pid=8&_gl=1*6do3g5*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTU3MzU1MjYkbzE1MyRnMCR0MTc1NTczNTUyNiRqNjAkbDAkaDA.'
     },
     {
       name: 'Cloud VM',
@@ -84,7 +87,8 @@ const Home: React.FC = () => {
         'Soporta hasta 32GB de memoria',
         'Hasta 2TB de almacenamiento SAN',
       ],
-      popular: false
+      popular: false,
+      url: 'https://my.donhoster.com/cart.php?a=add&pid=7&_gl=1*6do3g5*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTU3MzU1MjYkbzE1MyRnMCR0MTc1NTczNTUyNiRqNjAkbDAkaDA.'
     },
     {
       name: 'EE.UU./Costa Este - Supermicro MicroCloud',
@@ -96,7 +100,8 @@ const Home: React.FC = () => {
         'Soporta hasta 32GB DDR3 1600MHz',
         'Opciones de 2 x 3.5" SATA/SSD',
       ],
-      popular: false
+      popular: false,
+      url: 'https://my.donhoster.com/cart.php?a=add&pid=11&_gl=1*6do3g5*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTU3MzU1MjYkbzE1MyRnMCR0MTc1NTczNTUyNiRqNjAkbDAkaDA.'
     }
   ];
 
@@ -213,6 +218,71 @@ const Home: React.FC = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen"
     >
+            <Helmet>
+        {/* Meta básicas */}
+        <title>DonHoster | Hosting Web, VPS y Servidores Dedicados en Miami</title>
+        <meta
+          name="description"
+          content="Hosting web, VPS y servidores dedicados en Miami con soporte 24/7 en español. Rendimiento óptimo para España y Latinoamérica. Planes desde 2,60 USD/mes."
+        />
+        <meta
+          name="keywords"
+          content="hosting web, hosting wordpress, vps miami, servidores dedicados, hosting españa, cloud hosting"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="DonHoster" />
+        <meta name="copyright" content="© 2025 DonHoster" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="DonHoster - Hosting Web, VPS y Servidores Dedicados en Miami" />
+        <meta
+          property="og:description"
+          content="Servidores de alto rendimiento con soporte técnico en español. Hosting en Miami optimizado para WordPress, VPS y servidores dedicados."
+        />
+        <meta property="og:image" content="https://donhoster.es/assets/home-cover.jpg" />
+        <meta property="og:url" content="https://donhoster.es/" />
+        <meta property="og:site_name" content="DonHoster" />
+        <meta property="og:locale" content="es_ES" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@donhoster" />
+        <meta name="twitter:creator" content="@donhoster" />
+        <meta
+          name="twitter:title"
+          content="DonHoster - Hosting Web, VPS y Servidores Dedicados en Miami"
+        />
+        <meta
+          name="twitter:description"
+          content="Hosting web, VPS y servidores dedicados en Miami con soporte 24/7 en español. Ideal para España y Latinoamérica."
+        />
+        <meta name="twitter:image" content="https://donhoster.es/assets/home-twitter.jpg" />
+
+        {/* Canonical & Hreflang */}
+        <link rel="canonical" href="https://donhoster.es/" />
+        <link rel="alternate" hrefLang="es" href="https://donhoster.es/" />
+        <link rel="alternate" hrefLang="en" href="https://donhoster.es/en/" />
+        <link rel="alternate" hrefLang="x-default" href="https://donhoster.es/" />
+
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "DonHoster",
+            "url": "https://donhoster.es/",
+            "description": "Hosting web, VPS y servidores dedicados en Miami con soporte 24/7 en español. Rendimiento óptimo para España y Latinoamérica.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "DonHoster",
+              "url": "https://donhoster.es"
+            }
+          }
+          `}
+        </script>
+      </Helmet>
       {/* Hero Section */}
       <section className="relative pt-20 lg:pt-32 pb-16 lg:pb-24 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -519,17 +589,19 @@ const Home: React.FC = () => {
                   ))}
                 </ul>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-full py-3 rounded-lg font-semibold transition-colors duration-200 ${
-                    plan.popular
-                      ? 'bg-white text-purple-600 hover:bg-gray-100'
-                      : 'bg-purple-600 text-white hover:bg-purple-700'
-                  }`}
-                >
-                  Comprar Ahora
-                </motion.button>
+<motion.button
+  onClick={() => window.open(plan.url, '_blank')} 
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className={`w-full py-3 rounded-lg font-semibold transition-colors duration-200 ${
+    plan.popular
+      ? 'bg-white text-purple-600 hover:bg-gray-100'
+      : 'bg-purple-600 text-white hover:bg-purple-700'
+  }`}
+>
+  Comprar Ahora
+</motion.button>
+
               </motion.div>
             ))}
           </div>

@@ -11,6 +11,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import { Helmet } from 'react-helmet-async';
 
 const HostingPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -40,7 +41,8 @@ const hostingPlans = [
       'Soporte técnico 24/7',
       'Centro de datos en Miami, FL',
       'Servidores Idera by V8-925 ®'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=15"
   },
   {
     name: 'Hosting cPanel Medium',
@@ -66,7 +68,8 @@ const hostingPlans = [
       'Soporte técnico 24/7',
       'Centro de datos en Miami, FL',
       'Servidores Idera by V8-925 ®'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=17"
   },
   {
     name: 'Hosting cPanel Large',
@@ -93,7 +96,8 @@ const hostingPlans = [
       'Soporte técnico 24/7',
       'Centro de datos en Miami, FL',
       'Servidores Idera by V8-925 ®'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=18"
   },
   {
     name: 'Hosting cPanel Extra',
@@ -119,7 +123,8 @@ const hostingPlans = [
       'Soporte técnico 24/7',
       'Centro de datos en Miami, FL',
       'Servidores Idera by V8-925 ®'
-    ]
+    ],
+    url:"https://my.donhoster.com/cart.php?a=add&pid=20"
   }
 ];
 
@@ -176,6 +181,93 @@ const hostingPlans = [
       exit={{ opacity: 0 }}
       className="min-h-screen pt-20"
     >
+        <Helmet>
+        {/* Meta básicas */}
+        <title>Hosting Web cPanel en Miami - Rápido y Seguro | DonHoster</title>
+        <meta
+        name="description"
+        content="Planes de hosting web cPanel en Miami con SSL gratis, soporte 24/7 y migración incluida. Desde 2.60 USD/mes. Ideal para proyectos en España y Latinoamérica."
+        />
+        <meta
+          name="keywords"
+          content="hosting web, hosting cpanel, alojamiento web miami, hosting barato, hosting españa, hosting wordpress, hosting seguro"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="DonHoster" />
+        <meta name="copyright" content="© 2025 DonHoster" />
+        <meta
+          name="google-site-verification"
+          content="6rSogJvqCBWoYb9BDaCPSDNlzAm56y6cNhVgncvooF8"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Hosting Web cPanel en Miami - Rápido y Seguro | DonHoster"
+        />
+        <meta
+          property="og:description"
+          content="Planes de hosting web cPanel en Miami con SSL gratis, soporte 24/7 y migración incluida. Desde 2.60 USD/mes."
+        />
+        <meta
+          property="og:image"
+          content="https://donhoster.es/imagen-hosting.jpg"
+        />
+        <meta property="og:url" content="https://donhoster.es/hosting" />
+        <meta property="og:site_name" content="DonHoster" />
+        <meta property="og:locale" content="es_ES" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@donhoster" />
+        <meta name="twitter:creator" content="@donhoster" />
+        <meta
+          name="twitter:title"
+          content="Hosting Web cPanel en Miami - Rápido y Seguro | DonHoster"
+        />
+        <meta
+          name="twitter:description"
+          content="Planes de hosting web cPanel en Miami con SSL gratis, soporte 24/7 y migración incluida. Desde 2.60 USD/mes."
+        />
+        <meta
+          name="twitter:image"
+          content="https://donhoster.es/imagen-hosting-twitter.jpg"
+        />
+
+        {/* Canonical + hreflang */}
+        <link rel="canonical" href="https://donhoster.es/hosting-wordpress" />
+        <link rel="alternate" hrefLang="es" href="https://donhoster.es/hosting" />
+        <link rel="alternate" hrefLang="en" href="https://donhoster.es/hosting" />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://donhoster.es/hosting"
+        />
+
+        {/* Favicons */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Hosting Web cPanel en Miami - Rápido y Seguro | DonHoster",
+            "url": "https://donhoster.es/hosting",
+            "description": "Planes de hosting web cPanel en Miami con SSL gratis, soporte 24/7 y migración incluida. Desde 2.60 USD/mes. Ideal para proyectos en España y Latinoamérica.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "DonHoster",
+              "url": "https://donhoster.es"
+            }
+          }
+          `}
+        </script>
+      </Helmet>
       {/* Hero Section */}
 <section className="relative py-16 lg:py-24 overflow-hidden">
   {/* Gradiente */}
@@ -225,7 +317,7 @@ const hostingPlans = [
 
       {/* Hosting Plans */}
       <AnimatedSection className="py-16 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div id='planes' className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Planes de Hosting Web
@@ -449,14 +541,16 @@ const hostingPlans = [
                 </div>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors duration-200 flex items-center space-x-2"
-              >
-                <span>Empezar con WordPress</span>
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
+              <a href="#planes">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                  <span>Empezar con WordPress</span>
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </a>
             </div>
 
             <div className="relative">

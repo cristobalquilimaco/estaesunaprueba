@@ -10,6 +10,10 @@ import VPSPage from './pages/VPSPage';
 import HostingPage from './pages/HostingPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import CloudPage from './pages/CloudPage';
+import { HelmetProvider } from 'react-helmet-async';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -35,6 +39,7 @@ function App() {
   };
 
   return (
+    <HelmetProvider>
     <Router>
       <div className={`min-h-screen transition-colors duration-300 ${
         darkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'
@@ -45,11 +50,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servidores-dedicados" element={<ServersPage />} />
-            <Route path="/vps" element={<VPSPage />} />
-            <Route path="/hosting" element={<HostingPage />} />
-
+            <Route path="/vps-hosting" element={<VPSPage />} />
+            <Route path="/hosting-wordpress" element={<HostingPage />} />
+            <Route path="/Cloud" element={<CloudPage />} />
             <Route path="/sobre-nosotros" element={<AboutPage />} />
             <Route path="/contacto" element={<ContactPage />} />
+            <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
+            <Route path="/Terminos-y-condiciones" element={<TermsConditions />} />
           </Routes>
         </AnimatePresence>
         
@@ -57,6 +64,7 @@ function App() {
         <ScrollToTop />
       </div>
     </Router>
+</HelmetProvider>
   );
 }
 

@@ -22,8 +22,8 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const menuItems = [
     { name: 'Home', path: '/' },
     { name: 'Servidores Dedicados', path: '/servidores-dedicados' },
-    { name: 'VPS', path: '/vps' },
-    { name: 'Web Hosting', path: '/hosting' },
+    { name: 'VPS', path: '/vps-hosting' },
+    { name: 'Web Hosting', path: '/hosting-wordpress' },
     { name: 'Cloud', path: '/cloud' },
     { name: 'Sobre Nosotros', path: '/sobre-nosotros' },
     { name: 'Contacto', path: '/contacto' }
@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link to="/" className="flex items-center space-x-2 group">
+          <Link to="https://donhoster.es/" className="flex items-center space-x-2 group">
             <motion.img
               src="https://www.donhoster.com/assets/logo-DqEtRenT.webp"
               alt="DonHoster Logo"
@@ -91,12 +91,12 @@ const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </motion.div>
             </button>
-
-            <button className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-200 hover:scale-105 active:scale-95">
+            <Link to="https://my.donhoster.com/index.php?rp=/login">
+                        <button className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-200 hover:scale-105 active:scale-95">
               <User className="w-4 h-4" />
               <span>Iniciar sesión</span>
             </button>
-
+            </Link>
             {/* Mobile Menu Toggle */}
             <button
               className="header-menu-toggle lg:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"

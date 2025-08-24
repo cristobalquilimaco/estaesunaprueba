@@ -12,9 +12,11 @@ import {
   ChevronDown
 } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import { Helmet } from 'react-helmet-async';
+
 
 const VPSPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('vps');
+  const [activeTab, setActiveTab] = useState<keyof typeof comparisonData>('vps');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
 const vpsPlans = [
@@ -33,7 +35,8 @@ const vpsPlans = [
       '1 IP dedicada (IPv4)',
       'Acceso root por SSH',
       'Soporte técnico 24/7'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=1&_gl=1*1t7b6j3*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MjkxOCRqNjAkbDAkaDA."
   },
   {
     name: 'VPS Medium - Miami',
@@ -51,7 +54,8 @@ const vpsPlans = [
       '1 IP dedicada (IPv4)',
       'Acceso root por SSH',
       'Soporte técnico 24/7'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=3&_gl=1*ylg0vg*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzA0MSRqNjAkbDAkaDA."
   },
   {
     name: 'VPS Large - Miami',
@@ -68,7 +72,8 @@ const vpsPlans = [
       '1 IP dedicada (IPv4)',
       'Acceso root por SSH',
       'Soporte técnico 24/7'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=4&_gl=1*ylg0vg*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzA0MSRqNjAkbDAkaDA."
   },
   {
     name: 'VPS Extra Large - Miami',
@@ -85,12 +90,19 @@ const vpsPlans = [
       '1 IP dedicada (IPv4)',
       'Acceso root por SSH',
       'Soporte técnico 24/7'
-    ]
+    ],
+    url: "https://my.donhoster.com/cart.php?a=add&pid=5&_gl=1*tj4z3z*_gcl_au*MjEwNTg2ODAwMS4xNzUyMDIxODc2*_ga*MTg1NzgxNzE3MS4xNzA4MjcxMTE4*_ga_E8HRCWRKGG*czE3NTYwNDE0ODYkbzE1NyRnMSR0MTc1NjA0MzA0MSRqNjAkbDAkaDA."
   }
 ];
 
+interface ComparisionData{
+  title: string;
+  pros: string[];
+  ideal: string;
+  dedicated?: string[]
+}
 
-  const comparisonData = {
+  const comparisonData: Record<'vps' | 'dedicated', ComparisionData>= {
     vps: {
       title: 'VPS Hosting',
       pros: [
@@ -145,6 +157,105 @@ const vpsPlans = [
       exit={{ opacity: 0 }}
       className="min-h-screen pt-20"
     >
+          <Helmet>
+        {/* Meta básicas */}
+        <title>VPS Hosting Miami - Servidores Virtuales Escalables | DonHoster</title>
+        <meta
+          name="description"
+          content="Contrata VPS Hosting en Miami con recursos dedicados, CPU Intel, HDD/SSD y soporte 24/7. Servidores virtuales escalables desde 14 USD/mes, ideales para España y Latinoamérica."
+        />
+        <meta
+          name="keywords"
+          content="vps miami, hosting vps, servidores virtuales, vps escalables, cloud vps, hosting españa, servidores dedicados miami"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="DonHoster" />
+        <meta name="copyright" content="© 2025 DonHoster" />
+        <meta
+          name="google-site-verification"
+          content="6rSogJvqCBWoYb9BDaCPSDNlzAm56y6cNhVgncvooF8"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="VPS Hosting en Miami - Servidores Virtuales Escalables | DonHoster"
+        />
+        <meta
+          property="og:description"
+          content="VPS Hosting en Miami con recursos dedicados, CPU Intel y soporte 24/7. Escalable y seguro desde 14 USD/mes."
+        />
+        <meta
+          property="og:image"
+          content="https://donhoster.es/assets/vps-miami.jpg"
+        />
+        <meta
+          property="og:url"
+          content="https://donhoster.es/vps-hosting-miami"
+        />
+        <meta property="og:site_name" content="DonHoster" />
+        <meta property="og:locale" content="es_ES" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@donhoster" />
+        <meta name="twitter:creator" content="@donhoster" />
+        <meta
+          name="twitter:title"
+          content="VPS Hosting en Miami - Servidores Virtuales Escalables | DonHoster"
+        />
+        <meta
+          name="twitter:description"
+          content="Servidores VPS en Miami con recursos dedicados, escalabilidad y soporte 24/7. Planes desde 14 USD/mes."
+        />
+        <meta
+          name="twitter:image"
+          content="https://donhoster.es/assets/vps-miami-twitter.jpg"
+        />
+
+        {/* Canonical & Hreflang */}
+        <link rel="canonical" href="https://donhoster.es/vps-hosting-miami" />
+        <link
+          rel="alternate"
+          hrefLang="es"
+          href="https://donhoster.es/vps-hosting-miami"
+        />
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href="https://donhoster.es/en/vps-hosting-miami"
+        />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://donhoster.es/vps-hosting-miami"
+        />
+
+        {/* Favicon */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "VPS Hosting en Miami - Servidores Virtuales Escalables | DonHoster",
+            "url": "https://donhoster.es/vps-hosting-miami",
+            "description": "Contrata VPS Hosting en Miami con recursos dedicados, CPU Intel, HDD/SSD y soporte 24/7. Escalable y seguro desde 14 USD/mes, ideal para España y Latinoamérica.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "DonHoster",
+              "url": "https://donhoster.es"
+            }
+          }
+          `}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black opacity-90"></div>
@@ -299,19 +410,18 @@ const vpsPlans = [
                     ))}
                   </ul>
                 </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-full py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2 ${
-                    plan.popular
-                      ? 'bg-white text-purple-600 hover:bg-gray-100'
-                      : 'bg-purple-600 text-white hover:bg-purple-700'
-                  }`}
-                >
-                  <span>Contratar Ahora</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.button>
+<motion.button
+  onClick={() => window.open(plan.url, '_blank')} 
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className={`w-full py-3 rounded-lg font-semibold transition-colors duration-200 ${
+    plan.popular
+      ? 'bg-white text-purple-600 hover:bg-gray-100'
+      : 'bg-purple-600 text-white hover:bg-purple-700'
+  }`}
+>
+  Comprar Ahora
+</motion.button>
               </motion.div>
             ))}
           </div>

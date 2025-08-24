@@ -11,31 +11,32 @@ import {
   CheckCircle
 } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import { Helmet } from 'react-helmet-async';
 
 const AboutPage: React.FC = () => {
   const milestones = [
     {
-      year: '2009',
+      year: '2017',
       title: 'Fundación de DonHoster',
-      description: 'Inicio de operaciones en España con un enfoque en calidad y servicio personalizado.'
+      description: 'Inicio de operaciones en Miami con un enfoque en calidad y servicio personalizado.'
     },
     {
-      year: '2012',
+      year: '2019',
       title: 'Expansión a Miami',
       description: 'Apertura de nuestro data center en Miami para mejorar la conectividad global.'
     },
     {
-      year: '2015',
+      year: '2021',
       title: '1,000+ Clientes',
       description: 'Alcanzamos los mil clientes activos con una satisfacción del 98%.'
     },
     {
-      year: '2018',
+      year: '2023',
       title: 'Certificación ISO 27001',
       description: 'Obtención de certificación internacional de seguridad de la información.'
     },
     {
-      year: '2021',
+      year: '2024',
       title: 'Cloud Hosting',
       description: 'Lanzamiento de servicios cloud con tecnología de escalado automático.'
     },
@@ -43,33 +44,6 @@ const AboutPage: React.FC = () => {
       year: '2025',
       title: '5,000+ Clientes',
       description: 'Más de 5,000 clientes confían en nuestra infraestructura para sus negocios.'
-    }
-  ];
-
-  const team = [
-    {
-      name: 'Carlos Martínez',
-      position: 'CEO & Fundador',
-      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg',
-      description: 'Ingeniero en Telecomunicaciones con más de 20 años de experiencia en infraestructuras tecnológicas.'
-    },
-    {
-      name: 'Ana García',
-      position: 'CTO',
-      image: 'https://images.pexels.com/photos/3727463/pexels-photo-3727463.jpeg',
-      description: 'Especialista en cloud computing y arquitecturas escalables. Lidera nuestro equipo de desarrollo.'
-    },
-    {
-      name: 'Miguel Rodríguez',
-      position: 'Director de Operaciones',
-      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg',
-      description: 'Experto en gestión de data centers y operaciones 24/7. Garantiza nuestra alta disponibilidad.'
-    },
-    {
-      name: 'Laura Sánchez',
-      position: 'Directora de Soporte',
-      image: 'https://images.pexels.com/photos/3727456/pexels-photo-3727456.jpeg',
-      description: 'Líder del equipo de soporte técnico, especializada en experiencia de usuario y satisfacción del cliente.'
     }
   ];
 
@@ -114,10 +88,147 @@ const AboutPage: React.FC = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen pt-20"
     >
+      <Helmet>
+        {/* Meta etiquetas básicas */}
+        <html lang="es" />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Título de la página (58 caracteres) */}
+        <title>Sobre DonHoster | 8 Años Liderando el Hosting en España</title>
+        
+        {/* Meta description (157 caracteres) */}
+        <meta name="description" content="Conoce DonHoster: 8 años ofreciendo hosting empresarial en España. Certificaciones ISO 27001, data center Miami, 5000+ clientes y soporte 24/7." />
+        
+        {/* Meta keywords */}
+        <meta name="keywords" content="donhoster historia, hosting empresarial españa, certificación iso 27001, data center miami, hosting españa empresa, valores donhoster" />
+        
+        {/* Meta robots */}
+        <meta name="robots" content="index, follow" />
+        
+        {/* Autor y copyright */}
+        <meta name="author" content="DonHoster España" />
+        <meta name="copyright" content="© 2025 DonHoster España" />
+        
+        {/* Open Graph para redes sociales */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Sobre DonHoster | 8 Años Liderando el Hosting en España" />
+        <meta property="og:description" content="Descubre la historia de DonHoster: 8 años de experiencia, certificaciones internacionales, data center en Miami y más de 5000 clientes satisfechos." />
+        <meta property="og:image" content="https://donhoster.es/images/sobre-donhoster-empresa-spain.jpg" />
+        <meta property="og:url" content="https://donhoster.es/sobre-nosotros" />
+        <meta property="og:site_name" content="DonHoster España" />
+        <meta property="og:locale" content="es_ES" />
+        
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@DonHoster" />
+        <meta name="twitter:creator" content="@DonHoster" />
+        <meta name="twitter:title" content="Sobre DonHoster | 8 Años Liderando el Hosting en España" />
+        <meta name="twitter:description" content="8 años de experiencia en hosting empresarial, certificaciones ISO y data center Miami." />
+        <meta name="twitter:image" content="https://donhoster.es/images/sobre-donhoster-empresa-spain.jpg" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://donhoster.es/sobre-nosotros" />
+        
+        {/* Hreflang para sitios multiidioma */}
+        <link rel="alternate" hrefLang="es" href="https://donhoster.es/sobre-nosotros" />
+        <link rel="alternate" hrefLang="en" href="https://donhoster.com/about-donhoster" />
+        <link rel="alternate" hrefLang="x-default" href="https://donhoster.es/sobre-nosotros" />
+        
+        {/* Favicon */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        
+        {/* DNS prefetch para mejorar velocidad */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        
+        {/* Preconnect para recursos críticos */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Google Search Console verification */}
+        <meta name="google-site-verification" content="6rSogJvqCBWoYb9BDaCPSDNlzAm56y6cNhVgncvooF8" />
+        
+        {/* Schema.org structured data */}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "Sobre DonHoster España",
+            "url": "https://donhoster.es/sobre-nosotros",
+            "@id": "https://donhoster.es/sobre-nosotros#webpage",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "DonHoster España",
+              "@id": "https://donhoster.es/#organization",
+              "url": "https://donhoster.es",
+              "logo": "https://donhoster.es/images/donhoster-logo.png",
+              "foundingDate": "2017",
+              "description": "Empresa de hosting empresarial con 8 años de experiencia, certificaciones ISO 27001 y data center en Miami.",
+              "numberOfEmployees": "50-100",
+              "awards": [
+                "Certificación ISO 27001 - Seguridad de la Información",
+                "Certificación ISO 9001 - Gestión de Calidad",
+                "Certificación PCI DSS - Seguridad de Datos de Pago",
+                "Certificación Tier III+ - Data Center"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "ES",
+                "addressRegion": "España"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+34-900-123-456",
+                "contactType": "customer service",
+                "areaServed": "ES",
+                "availableLanguage": "Spanish"
+              },
+              "sameAs": [
+                "https://twitter.com/donhoster",
+                "https://linkedin.com/company/donhoster"
+              ]
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Inicio",
+                  "item": "https://donhoster.es"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Sobre Nosotros",
+                  "item": "https://donhoster.es/sobre-nosotros"
+                }
+              ]
+            }
+          }
+        `}</script>
+        
+        {/* CSS crítico inline para mejorar Core Web Vitals */}
+        <style>{`
+          body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          }
+          .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+          .text-shadow-lg { text-shadow: 3px 3px 6px rgba(0,0,0,0.7); }
+        `}</style>
+        
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-gray-900 opacity-90"></div>
-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg')] bg-cover bg-center"></div>
+-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg')] bg-cover bg-center"></div>
++        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg')] bg-cover bg-center"></div>
++        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
++        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-purple-800/60 to-transparent"></div>
         
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.h1
@@ -135,7 +246,7 @@ const AboutPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
           >
-            15 años de experiencia proporcionando soluciones de hosting empresarial 
+            8 años de experiencia proporcionando soluciones de hosting empresarial 
             con tecnología de vanguardia y soporte humano excepcional.
           </motion.p>
         </div>
@@ -154,14 +265,14 @@ const AboutPage: React.FC = () => {
               <div className="flex items-center mb-6">
                 <Target className="w-8 h-8 text-purple-600 mr-4" />
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Nuestra Misión
+                  Qué nos mueve
                 </h2>
               </div>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Proporcionar soluciones de hosting empresarial de alta calidad que permitan 
                 a nuestros clientes centrarse en hacer crecer sus negocios, mientras nosotros 
-                nos encargamos de mantener su infraestructura digital funcionando de manera 
-                óptima, segura y confiable las 24 horas del día.
+                mantenemos su infraestructura digital funcionando de manera óptima, segura 
+                y confiable las 24 horas del día.
               </p>
             </motion.div>
 
@@ -174,7 +285,7 @@ const AboutPage: React.FC = () => {
               <div className="flex items-center mb-6">
                 <Globe className="w-8 h-8 text-purple-600 mr-4" />
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Nuestra Visión
+                  Hacia dónde vamos
                 </h2>
               </div>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -196,7 +307,7 @@ const AboutPage: React.FC = () => {
               Nuestra Historia
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Más de 15 años innovando en soluciones de hosting
+              8 años innovando en soluciones de hosting
             </p>
           </div>
 
@@ -234,7 +345,6 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </AnimatedSection>
-
       {/* Values */}
       <AnimatedSection className="py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

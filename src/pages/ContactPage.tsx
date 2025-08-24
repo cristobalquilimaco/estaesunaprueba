@@ -10,6 +10,8 @@ import {
   CheckCircle
 } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import FloridaMap from '../components/FloridaMap';
+import { Helmet } from 'react-helmet-async';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -45,31 +47,12 @@ const ContactPage: React.FC = () => {
       description: 'Respuesta en menos de 2 horas'
     },
     {
-      icon: Phone,
-      title: 'Teléfono',
-      content: '+34 900 123 456',
-      description: 'Soporte 24/7 en español'
-    },
-    {
-      icon: MapPin,
-      title: 'Oficinas España',
-      content: 'Calle Serrano 123, 28006 Madrid',
-      description: 'Horario: Lunes a Viernes 9:00-18:00'
-    },
-    {
       icon: Clock,
       title: 'Horario de Atención',
       content: '24 horas, 7 días',
       description: 'Soporte técnico siempre disponible'
     }
   ];
-
-  // const officeHours = [
-  //   { day: 'Lunes - Viernes', hours: '09:00 - 18:00', type: 'Comercial' },
-  //   { day: 'Sábados', hours: '10:00 - 14:00', type: 'Comercial' },
-  //   { day: 'Domingos', hours: 'Cerrado', type: 'Comercial' },
-  //   { day: 'Todos los días', hours: '24 horas', type: 'Soporte Técnico' }
-  // ];
 
   return (
     <motion.div
@@ -78,26 +61,157 @@ const ContactPage: React.FC = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen pt-20"
     >
+        <Helmet>
+        <html lang="es" />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Título de la página (57 caracteres) */}
+        <title>Contacto - DonHoster | Hosting Web España Soporte 24/7</title>
+        
+        {/* Meta description (158 caracteres) */}
+        <meta name="description" content="Contacta con DonHoster España. Hosting web, VPS y servidores dedicados. Soporte técnico 24/7, migración gratuita y respuesta en menos de 2 horas." />
+        
+        {/* Meta keywords */}
+        <meta name="keywords" content="contacto donhoster, soporte hosting españa, soporte 24/7, hosting web contacto, vps españa soporte, servidor dedicado contacto" />
+        
+        {/* Meta robots */}
+        <meta name="robots" content="index, follow" />
+        
+        {/* Autor y copyright */}
+        <meta name="author" content="DonHoster España" />
+        <meta name="copyright" content="© 2025 DonHoster España" />
+        
+        {/* Open Graph para redes sociales */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Contacto - DonHoster | Hosting Web España Soporte 24/7" />
+        <meta property="og:description" content="Contacta con DonHoster España. Hosting web, VPS y servidores dedicados con soporte técnico 24/7 y respuesta garantizada en menos de 2 horas." />
+        <meta property="og:image" content="https://donhoster.es/images/contacto-donhoster-spain.jpg" />
+        <meta property="og:url" content="https://donhoster.es/contacto" />
+        <meta property="og:site_name" content="DonHoster España" />
+        <meta property="og:locale" content="es_ES" />
+        
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@DonHoster" />
+        <meta name="twitter:creator" content="@DonHoster" />
+        <meta name="twitter:title" content="Contacto - DonHoster | Hosting Web España Soporte 24/7" />
+        <meta name="twitter:description" content="Contacta con DonHoster España. Soporte técnico 24/7, migración gratuita y respuesta en menos de 2 horas." />
+        <meta name="twitter:image" content="https://donhoster.es/images/contacto-donhoster-spain.jpg" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://donhoster.es/contacto" />
+        
+        <link rel="alternate" hrefLang="es" href="https://donhoster.es/contacto" />
+        <link rel="alternate" hrefLang="en" href="https://donhoster.es/en/contact" />
+        <link rel="alternate" hrefLang="x-default" href="https://donhoster.es/contacto" />
+
+
+        {/* Favicon */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        
+        {/* DNS prefetch para mejorar velocidad */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        
+        {/* Preconnect para recursos críticos */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Google Search Console verification */}
+        <meta name="google-site-verification" content="6rSogJvqCBWoYb9BDaCPSDNlzAm56y6cNhVgncvooF8" />
+        
+        {/* Schema.org structured data */}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contacto DonHoster España",
+            "url": "https://donhoster.es/contacto",
+            "@id": "https://donhoster.es/contacto#webpage",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "DonHoster España",
+              "@id": "https://donhoster.es/#organization",
+              "url": "https://donhoster.es",
+              "logo": "https://donhoster.es/images/donhoster-logo.png",
+              "contactPoint": [
+                {
+                  "@type": "ContactPoint",
+                  "telephone": "+34-900-123-456",
+                  "contactType": "customer service",
+                  "areaServed": "ES",
+                  "availableLanguage": "Spanish",
+                  "hoursAvailable": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                    "opens": "00:00",
+                    "closes": "23:59"
+                  }
+                }
+              ],
+              "email": "info@donhoster.es",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "ES",
+                "addressRegion": "España"
+              }
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Inicio",
+                  "item": "https://donhoster.es"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Contacto",
+                  "item": "https://donhoster.es/contacto"
+                }
+              ]
+            }
+          }
+        `}</script>
+        
+        {/* CSS crítico inline para mejorar Core Web Vitals */}
+        <style>{`
+          body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          }
+          .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+          .text-shadow-lg { text-shadow: 3px 3px 6px rgba(0,0,0,0.7); }
+        `}</style>
+        
+        {/* CSS no crítico con preload */}
+      </Helmet>
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-900 to-gray-900 opacity-90"></div>
-        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg')] bg-cover bg-center"></div>
+        {/* Enhanced dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/85 via-purple-900/90 to-gray-900/85 z-10"></div>
+        {/* Darker background image with better contrast */}
+        <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg')] bg-cover bg-center"></div>
         
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl lg:text-6xl font-bold mb-6"
+            className="text-4xl lg:text-6xl font-bold mb-6 text-shadow-lg"
           >
-            <span className="text-purple-400">Contacta</span> con Nosotros
+            <span className="text-purple-300">Contacta</span> con Nosotros
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl lg:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+            className="text-xl lg:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto text-shadow"
           >
             Nuestro equipo de expertos está aquí para ayudarte a encontrar 
             la solución perfecta para tu infraestructura digital.
@@ -108,7 +222,7 @@ const ContactPage: React.FC = () => {
       {/* Contact Info */}
       <AnimatedSection className="py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
@@ -300,17 +414,18 @@ const ContactPage: React.FC = () => {
                 transition={{ duration: 0.8 }}
                 className="bg-white dark:bg-gray-700 p-6 rounded-2xl shadow-xl"
               >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Data centers
-                </h3>
-                <div className="aspect-video bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Miami FL<br />
-                      
-                    </p>
-                  </div>
+                <div className="flex items-center mb-4">
+                  <MapPin className="w-6 h-6 text-purple-600 mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Data Center - Miami, Florida
+                  </h3>
+                </div>
+                <FloridaMap />
+                <div className="mt-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                  <p className="text-sm text-purple-700 dark:text-purple-300 text-center">
+                    🚀 <strong>Servidores de alta velocidad</strong> ubicados estratégicamente 
+                    para brindar la mejor experiencia a usuarios en América Latina y Estados Unidos.
+                  </p>
                 </div>
               </motion.div>
 
@@ -321,25 +436,38 @@ const ContactPage: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="bg-white dark:bg-gray-700 p-6 rounded-2xl shadow-xl"
               >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                  Soporte técnico
-                </h3>
-<div className="space-y-4">
-  <div className="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-600 last:border-b-0">
-    <div>
-      <p className="font-medium text-gray-900 dark:text-white">
-        Todos los días
-      </p>
-      <p className="text-sm text-gray-600 dark:text-gray-300">
-        Abierto
-      </p>
-    </div>
-    <p className="font-semibold text-green-600 dark:text-green-400">
-      24 horas
-    </p>
-  </div>
-</div>
-
+                <div className="flex items-center mb-6">
+                  <Clock className="w-6 h-6 text-purple-600 mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Soporte Técnico
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-600 last:border-b-0">
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        Todos los días
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Siempre disponible
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-green-600 dark:text-green-400">
+                        24 horas
+                      </p>
+                      <p className="text-xs text-green-500 dark:text-green-400">
+                        🟢 En línea
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <p className="text-sm text-green-700 dark:text-green-300 text-center">
+                    💬 <strong>Chat en vivo</strong>, 📧 <strong>Email</strong> y 📞 <strong>Teléfono</strong><br />
+                    Tiempo de respuesta promedio: <strong>2 minutos</strong>
+                  </p>
+                </div>
               </motion.div>
             </div>
           </div>
