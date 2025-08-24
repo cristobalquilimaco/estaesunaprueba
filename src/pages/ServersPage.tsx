@@ -68,46 +68,59 @@ const ServersPage: React.FC = () => {
   };
 
 // Función submitForm corregida para tu componente React
+// Función submitForm FINAL - Reemplaza tu función actual
+// Función submitForm CORREGIDA para React
 const submitForm = async (captchaToken: string | null = null) => {
   try {
-    // Configuración más robusta para la petición
-    const requestOptions: RequestInit = {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'omit', // Cambiado de 'same-origin' a 'omit' para evitar problemas
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify({
-        ...formData,
-        captchaToken,
-        timestamp: new Date().toISOString()
-      }),
+    const requestData = {
+      nombre: formData.nombre,
+      email: formData.email,
+      telefono: formData.telefono,
+      tipoProyecto: formData.tipoProyecto,
+      mensaje: formData.mensaje,
+      captchaToken,
+      timestamp: new Date().toISOString()
     };
 
-    console.log('Enviando datos:', { ...formData, captchaToken, timestamp: new Date().toISOString() });
+    console.log('Enviando datos:', requestData);
 
-    const response = await fetch(
-      'https://script.google.com/macros/s/AKfycbywVYDa0VqilMegTlDjDyHxM9yy6E7DWiWcZKdAvFhxyQwI66vd36KgAXtk83sgVOFJ/exec',
-      requestOptions
-    );
+    // ⭐ IMPORTANTE: Reemplaza con tu nueva URL de deployment
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwKAuEJsHSauBV0hq5JHvqi30BVX_tJdDjxVmezS0MCSPJqNI_EwiTfSPzYQ70w6eQSTA/exec';
+    
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
 
     console.log('Response status:', response.status);
-    console.log('Response ok:', response.ok);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const result = await response.json();
-    console.log('Resultado:', result);
+    const responseText = await response.text();
+    console.log('Response text:', responseText);
+    
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Error parsing JSON:', parseError);
+      throw new Error('Respuesta inválida del servidor');
+    }
+
+    console.log('Resultado parseado:', result);
     
     if (result.success) {
-      setMessage({ type: 'success', text: 'Solicitud enviada correctamente. Te contactaremos pronto.' });
+      setMessage({ 
+        type: 'success', 
+        text: result.message || 'Solicitud enviada correctamente. Te contactaremos pronto.' 
+      });
+      
+      // Limpiar formulario
       setFormData({
         nombre: '',
         email: '',
@@ -116,6 +129,7 @@ const submitForm = async (captchaToken: string | null = null) => {
         mensaje: ''
       });
       setShowCaptcha(false);
+      
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
@@ -124,17 +138,20 @@ const submitForm = async (captchaToken: string | null = null) => {
         setShowCaptcha(true);
         setMessage({ type: 'warning', text: 'Completa el captcha para continuar' });
       } else {
-        setMessage({ type: 'error', text: result.message || 'Error desconocido' });
+        setMessage({ 
+          type: 'error', 
+          text: result.message || 'Error desconocido en el servidor' 
+        });
       }
     }
+
   } catch (error) {
     console.error('Error completo:', error);
     
-    // Manejo de errores más específico
     if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
       setMessage({ 
         type: 'error', 
-        text: 'Error de conexión. Verifica tu conexión a internet e inténtalo nuevamente.' 
+        text: 'Error de conexión. Verifica que el Google Apps Script esté desplegado correctamente.' 
       });
     } else if (error instanceof Error) {
       setMessage({ 
@@ -144,7 +161,7 @@ const submitForm = async (captchaToken: string | null = null) => {
     } else {
       setMessage({ 
         type: 'error', 
-        text: 'Error inesperado. Inténtalo nuevamente.' 
+        text: 'Error desconocido. Intenta nuevamente.' 
       });
     }
   }
