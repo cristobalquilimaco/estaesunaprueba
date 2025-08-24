@@ -67,50 +67,88 @@ const ServersPage: React.FC = () => {
     return true;
   };
 
-  const submitForm = async (captchaToken: string | null = null) => {
-    try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbywVYDa0VqilMegTlDjDyHxM9yy6E7DWiWcZKdAvFhxyQwI66vd36KgAXtk83sgVOFJ/exec', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          captchaToken,
-          timestamp: new Date().toISOString()
-        }),
+// Función submitForm corregida para tu componente React
+const submitForm = async (captchaToken: string | null = null) => {
+  try {
+    // Configuración más robusta para la petición
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'omit', // Cambiado de 'same-origin' a 'omit' para evitar problemas
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({
+        ...formData,
+        captchaToken,
+        timestamp: new Date().toISOString()
+      }),
+    };
+
+    console.log('Enviando datos:', { ...formData, captchaToken, timestamp: new Date().toISOString() });
+
+    const response = await fetch(
+      'https://script.google.com/macros/s/AKfycbywVYDa0VqilMegTlDjDyHxM9yy6E7DWiWcZKdAvFhxyQwI66vd36KgAXtk83sgVOFJ/exec',
+      requestOptions
+    );
+
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('Resultado:', result);
+    
+    if (result.success) {
+      setMessage({ type: 'success', text: 'Solicitud enviada correctamente. Te contactaremos pronto.' });
+      setFormData({
+        nombre: '',
+        email: '',
+        telefono: '',
+        tipoProyecto: '',
+        mensaje: ''
       });
-
-      const result = await response.json();
-      
-      if (result.success) {
-        setMessage({ type: 'success', text: 'Solicitud enviada correctamente. Te contactaremos pronto.' });
-        setFormData({
-          nombre: '',
-          email: '',
-          telefono: '',
-          tipoProyecto: '',
-          mensaje: ''
-        });
-        setShowCaptcha(false);
-        if (recaptchaRef.current) {
-          recaptchaRef.current.reset();
-        }
-      } else {
-        if (result.needsCaptcha) {
-          setShowCaptcha(true);
-          setMessage({ type: 'warning', text: 'Completa el captcha para continuar' });
-        } else {
-          setMessage({ type: 'error', text: result.message });
-        }
+      setShowCaptcha(false);
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
       }
-    } catch (error) {
-      console.error('Error al enviar la solicitud:', error);
-      setMessage({ type: 'error', text: 'Error al enviar la solicitud. Inténtalo nuevamente.' });
-}
-  };
-
+    } else {
+      if (result.needsCaptcha) {
+        setShowCaptcha(true);
+        setMessage({ type: 'warning', text: 'Completa el captcha para continuar' });
+      } else {
+        setMessage({ type: 'error', text: result.message || 'Error desconocido' });
+      }
+    }
+  } catch (error) {
+    console.error('Error completo:', error);
+    
+    // Manejo de errores más específico
+    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      setMessage({ 
+        type: 'error', 
+        text: 'Error de conexión. Verifica tu conexión a internet e inténtalo nuevamente.' 
+      });
+    } else if (error instanceof Error) {
+      setMessage({ 
+        type: 'error', 
+        text: `Error: ${error.message}` 
+      });
+    } else {
+      setMessage({ 
+        type: 'error', 
+        text: 'Error inesperado. Inténtalo nuevamente.' 
+      });
+    }
+  }
+};
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
